@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Nav from './components/Nav';
 import { useState } from 'react';
+import Todo from './components/Todo';
 
 const App = () => {
   let name = 'Đức Anh';
@@ -13,6 +14,10 @@ const App = () => {
   ]);
 
   const handleOnClick = () =>{
+    if(!todo){
+      alert('you must enter data!!')
+      return;
+    }
     let newToDo = {id: 'abc', title: todo}
     setToDos([...todos, newToDo])
     setToDo('')
@@ -25,9 +30,7 @@ const App = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h2>Hello {name} đẹp trai</h2>
-        {todos.map((item, index)=>(
-          <li key={item.id}>{item.title}</li>
-        ))}
+         <Todo todos={todos}/>
         <input type='text' value={todo} onChange={(e) => setToDo(e.target.value)}/>
         <button onClick={handleOnClick}>Click me</button>
       </header>
