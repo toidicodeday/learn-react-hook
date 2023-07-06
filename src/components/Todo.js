@@ -1,12 +1,28 @@
 import React from 'react';
 
 const Todo = (props) =>{
-    const todos = props.todos;
+
+    const {todos, title, handleDeleteEvent} = props;
+
+    const handleDelete = (id) =>{
+        console.log("===>ID: ", id)
+        handleDeleteEvent(id)
+    }
   return (
     <div>
+    <div>
+        {title}
+    </div>
        {todos.map((item, index)=>(
-          <li key={item.id}>{item.title}</li>
+          <div key={item.id}>
+          <li>
+          {item.title}
+          &nbsp; &nbsp;
+          <span onClick={()=>handleDelete(item.id)}>X</span>
+          </li>
+          </div>
         ))}
+        <hr/>
     </div>
   );
 }

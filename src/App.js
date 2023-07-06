@@ -8,9 +8,9 @@ const App = () => {
   let name = 'Đức Anh';
   const [todo, setToDo] = useState('');
   const [todos, setToDos] = useState([
-    {id: 'todo1', title: 'Playing game'},
-    {id: 'todo2', title: 'learning reactjs'},
-    {id: 'todo3', title: 'eating'}
+    {id: 'todo1', title: 'Playing game', type: 'abc'},
+    {id: 'todo2', title: 'learning reactjs', type: 'abc'},
+    {id: 'todo3', title: 'eating', type: 'def'}
   ]);
 
   const handleOnClick = () =>{
@@ -18,19 +18,26 @@ const App = () => {
       alert('you must enter data!!')
       return;
     }
-    let newToDo = {id: 'abc', title: todo}
+    let newToDo = {id: Math.floor(Math.random()*100000 + 1), title: todo, type: 'def'}
     setToDos([...todos, newToDo])
     setToDo('')
     console.log("===>", todos)
   }
 
+  const handleDeleteEvent = (id) =>{
+    let newTodos = todos
+    newTodos = newTodos.filter(item=>item.id !== id)
+    setToDos(newTodos)
+  }
+
   return (
     <div className="App">
-    <Nav/>
       <header className="App-header">
+       <Nav/>
         <img src={logo} className="App-logo" alt="logo" />
         <h2>Hello {name} đẹp trai</h2>
-         <Todo todos={todos}/>
+         <Todo todos={todos} title='All Todos' handleDeleteEvent={handleDeleteEvent}/>
+         <Todo todos={todos.filter(item => item.type === 'def')} title='DEF Todos' handleDeleteEvent={handleDeleteEvent}/>
         <input type='text' value={todo} onChange={(e) => setToDo(e.target.value)}/>
         <button onClick={handleOnClick}>Click me</button>
       </header>
