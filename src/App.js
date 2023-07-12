@@ -4,6 +4,10 @@ import Nav from "./components/Nav";
 import { useEffect, useState } from "react";
 import Todo from "./components/Todo";
 import useFetch from "./hooks/useFetch";
+import { Routes, Route } from "react-router-dom";
+import User from "./components/User";
+import Timer from "./components/Timer";
+import Secret from "./components/Secret";
 
 const App = () => {
   let name = "Đức Anh";
@@ -47,53 +51,27 @@ const App = () => {
         <Nav />
         <img src={logo} className="App-logo" alt="logo" />
         <h2>Hello {name} đẹp trai</h2>
-        {/* <Todo todos={todos} title='All Todos' handleDeleteEvent={handleDeleteEvent}/>
-         <Todo todos={todos.filter(item => item.type === 'def')} title='DEF Todos' handleDeleteEvent={handleDeleteEvent}/> */}
-        {/* <input type='text' value={todo} onChange={(e) => setToDo(e.target.value)}/>
-        <button onClick={handleOnClick}>Click me</button> */}
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>website</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isError === false &&
-              isLoading === false &&
-              userList &&
-              userList.length > 0 &&
-              userList.map((user) => (
-                <tr key={user.id}>
-                  <th>{user.name}</th>
-                  <th>{user.username}</th>
-                  <th>{user.email}</th>
-                  <th>{user.phone}</th>
-                  <th>{user.website}</th>
-                </tr>
-              ))}
-
-            {isLoading && (
-              <tr>
-                <td colSpan={5} style={{ textAlign: "center" }}>
-                  Loading...
-                </td>
-              </tr>
-            )}
-
-            {isError && (
-              <tr>
-                <td colSpan={5} style={{ textAlign: "center" }}>
-                  Something Wrong...
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
       </header>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <User userList={userList} isLoading={isLoading} isError={isError} />
+          }
+        />
+        <Route path="/timer-app" element={<Timer />} />
+        <Route
+          path="/todo-app"
+          element={
+            <Todo
+              todos={todos}
+              title="All Todos"
+              handleDeleteEvent={handleDeleteEvent}
+            />
+          }
+        />
+        <Route path="/secret" element={<Secret />} />
+      </Routes>
     </div>
   );
 };
